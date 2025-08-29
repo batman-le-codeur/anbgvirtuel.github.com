@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Chat Histories</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8fafc;
+            color: #1a202c;
+            line-height: 1.6;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: #ffffff;
+            border-right: 1px solid #e2e8f0;
+            padding: 20px 0;
+            z-index: 100;
+        }
+
+        .logo {
+            padding: 0 20px 30px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #2d3748;
+            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 20px;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 5px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: #718096;
+            text-decoration: none;
+            transition: all 0.2s;
+            font-size: 14px;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: #f7fafc;
+            color: #2d3748;
+            border-right: 3px solid #3182ce;
+        }
+
+        .nav-link::before {
+            content: '';
+            width: 16px;
+            height: 16px;
+            margin-right: 12px;
+            background-size: contain;
+        }
+
+        .nav-link.dashboard::before { content: '📊'; }
+        .nav-link.chat::before { content: '💬'; }
+        .nav-link.users::before { content: '👥'; }
+        .nav-link.settings::before { content: '⚙️'; }
+
+        .main-content {
+            margin-left: 250px;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: white;
+            padding: 20px 30px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .page-subtitle {
+            color: #718096;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .connect-wallet {
+            background: #2d3748;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .connect-wallet:hover {
+            background: #4a5568;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            transition: box-shadow 0.2s;
+        }
+
+        .stat-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 4px;
+        }
+
+        .stat-change {
+            font-size: 12px;
+            color: #38a169;
+        }
+
+        .charts-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .chart-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .chart-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .chart-percentage {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2d3748;
+        }
+
+        .chart {
+            height: 120px;
+            background: #2d3748;
+            border-radius: 8px;
+            display: flex;
+            justify-content: end;
+            align-items: end;
+            padding: 15px;
+            gap: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart::before {
+            content: attr(data-percentage);
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .bar {
+            background: white;
+            border-radius: 2px;
+            min-width: 8px;
+            transition: all 0.3s;
+            opacity: 0.9;
+            animation: growUp 1s ease-out;
+        }
+
+        .bar:hover {
+            opacity: 1;
+        }
+
+        @keyframes growUp {
+            from { height: 0; }
+            to { height: var(--height); }
+        }
+
+        .conversations-section {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+        }
+
+        .section-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .refresh-btn {
+            background: #3182ce;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .refresh-btn:hover {
+            background: #2c5282;
+        }
+
+        .conversation-item {
+            padding: 20px 25px;
+            border-bottom: 1px solid #f7fafc;
+            transition: background 0.2s;
+        }
+
+        .conversation-item:hover {
+            background: #f7fafc;
+        }
+
+        .conversation-item:last-child {
+            border-bottom: none;
+        }
+
+        .conversation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .session-id {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .conversation-date {
+            font-size: 12px;
+            color: #718096;
+        }
+
+        .message-preview {
+            font-size: 14px;
+            color: #4a5568;
+            line-height: 1.5;
+        }
+
+        .market-stats {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 25px;
+            background: #f7fafc;
+            font-size: 12px;
+            color: #718096;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+            background: #38a169;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .charts-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">Chat Analytics</div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="#" class="nav-link dashboard active">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a href="#conversations" class="nav-link chat">Conversations</a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link users">Utilisateurs</a>
+            </li>
+            <li class="nav-item">
+                <a href="index.html" class="nav-link settings">Retour au menu</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <div>
+                <div class="page-title">Dashboard</div>
+                <div class="page-subtitle">Analyse des conversations IA</div>
+            </div>
+            <button class="connect-wallet">
+                <span class="status-indicator"></span>
+                Connecté
+            </button>
+        </div>
+
+        <div class="content">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Conversations</div>
+                    <div class="stat-value">127</div>
+                    <div class="stat-change">+12% ce mois</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Messages Aujourd'hui</div>
+                    <div class="stat-value">24</div>
+                    <div class="stat-change">+5.2% vs hier</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Sessions Actives</div>
+                    <div class="stat-value">8</div>
+                    <div class="stat-change">En cours</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Taux de Réponse</div>
+                    <div class="stat-value">98.5%</div>
+                    <div class="stat-change">Moyenne</div>
+                </div>
+            </div>
+
+            <div class="charts-container">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">Activité Hebdomadaire</div>
+                    </div>
+                    <div class="chart" data-percentage="73.2%">
+                        <div class="bar" style="--height: 60%; height: 60%;"></div>
+                        <div class="bar" style="--height: 80%; height: 80%;"></div>
+                        <div class="bar" style="--height: 45%; height: 45%;"></div>
+                        <div class="bar" style="--height: 90%; height: 90%;"></div>
+                        <div class="bar" style="--height: 100%; height: 100%;"></div>
+                        <div class="bar" style="--height: 75%; height: 75%;"></div>
+                        <div class="bar" style="--height: 85%; height: 85%;"></div>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">Performance</div>
+                    </div>
+                    <div class="chart" data-percentage="92.5%">
+                        <div class="bar" style="--height: 70%; height: 70%;"></div>
+                        <div class="bar" style="--height: 85%; height: 85%;"></div>
+                        <div class="bar" style="--height: 95%; height: 95%;"></div>
+                        <div class="bar" style="--height: 80%; height: 80%;"></div>
+                        <div class="bar" style="--height: 90%; height: 90%;"></div>
+                        <div class="bar" style="--height: 75%; height: 75%;"></div>
+                        <div class="bar" style="--height: 88%; height: 88%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="conversations" class="conversations-section">
+                <div class="section-header">
+                    <div class="section-title">Conversations Récentes</div>
+                    <button class="refresh-btn">🔄 Actualiser</button>
+                </div>
+                
+                <div class="conversation-item">
+                    <div class="conversation-header">
+                        <div class="session-id">Session: session_abc123</div>
+                        <div class="conversation-date">28 août 2025, 14:32</div>
+                    </div>
+                    <div class="message-preview">Bonjour ! Comment allez-vous aujourd'hui ? Je cherche des conseils pour mon orientation professionnelle...</div>
+                </div>
+
+                <div class="conversation-item">
+                    <div class="conversation-header">
+                        <div class="session-id">Session: session_def456</div>
+                        <div class="conversation-date">28 août 2025, 13:15</div>
+                    </div>
+                    <div class="message-preview">Pouvez-vous m'expliquer le rôle de l'anbg au Gabon ?</div>
+                </div>
+
+                <div class="conversation-item">
+                    <div class="conversation-header">
+                        <div class="session-id">Session: session_ghi789</div>
+                        <div class="conversation-date">28 août 2025, 12:08</div>
+                    </div>
+                    <div class="message-preview">J'aimerais connaitre le processus de candidature pour les bourses ANBG.</div>
+                </div>
+
+                <div class="conversation-item">
+                    <div class="conversation-header">
+                        <div class="session-id">Session: session_jkl012</div>
+                        <div class="conversation-date">28 août 2025, 11:45</div>
+                    </div>
+                    <div class="message-preview">Comment puis-je ouvrir un compte ebourse...</div>
+                </div>
+
+                <div class="conversation-item">
+                    <div class="conversation-header">
+                        <div class="session-id">Session: session_mno345</div>
+                        <div class="conversation-date">28 août 2025, 10:20</div>
+                    </div>
+                    <div class="message-preview">Quelles sont les meilleures pratiques pour etudier efficacement à distance ?</div>
+                </div>
+
+                <div class="conversation-item">
+                    <div class="conversation-header">
+                        <div class="session-id">Session: session_pqr678</div>
+                        <div class="conversation-date">28 août 2025, 09:33</div>
+                    </div>
+                    <div class="message-preview">Help ! Mon site web est lent. Comment optimiser les performances et améliorer le SEO ?</div>
+                </div>
+
+                <div class="conversation-item">
+                    <div class="conversation-header">
+                        <div class="session-id">Session: session_stu901</div>
+                        <div class="conversation-date">27 août 2025, 16:12</div>
+                    </div>
+                    <div class="message-preview">Je veux migrer vers le cloud. Quels sont les avantages et inconvénients d'AWS vs Azure ?</div>
+                </div>
+
+                <div class="conversation-item">
+                    <div class="conversation-header">
+                        <div class="session-id">Session: session_vwx234</div>
+                        <div class="conversation-date">27 août 2025, 14:55</div>
+                    </div>
+                    <div class="message-preview">Comment gérer une équipe en télétravail efficacement ? J'ai besoin de conseils pratiques...</div>
+                </div>
+
+                <div class="market-stats">
+                    <span>© 2024 Chat Analytics</span>
+                    <span>Dernière mise à jour: 14:35:22</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

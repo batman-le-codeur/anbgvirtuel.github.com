@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ANBG | IA pour l'Éducation</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="https://www.anbg-ga.com/wp-content/uploads/2020/02/logo-anbg-2020-RVB-V2-300x232.png"/>
+</head>
+<body>
+  <!-- Header -->
+  <header class="navbar">
+    <div class="logo"><img src="https://www.anbg-ga.com/wp-content/uploads/2020/02/logo-anbg-2020-RVB-V2-300x232.png" alt="logo ANBG" style="width: 100px; margin: -20px;"></div>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Accueil</a>
+      <a href="tableau.html">Plateforme</a>
+      <a href="#about">À propos</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="btn-primary">Se connecter</button>
+    <div class="burger" id="burger">&#9776;</div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>
+        Intégration de <span>l’Intelligence Artificielle</span><br>
+        par l’ANBG
+      </h1>
+      <p>
+        L’Agence Nationale des Bourses du Gabon accompagne les étudiants et chercheurs
+        dans l’adoption des solutions d’IA pour l’éducation et l’innovation.
+        <h3 style="color: rgb(255, 187, 0);">cliquez sur le bouton "Découvrir l'ia" pour discuter avec notre chatbot Gmail qui répond à vos questions en moins de 2 minutes.</h3>
+      </p>
+      <div class="hero-btns">
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=anbgvirtuel@gmail.com"><button class="btn-primary">Découvrir l'IA</button></a>
+        <button class="btn-secondary"><a href="#about">En savoir plus</a></button>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="africanpng.png" alt="IA ANBG">
+      <div class="card stat">
+        <h3>+10K</h3>
+        <p>Étudiants bénéficiaires</p>
+      </div>
+      <div class="card stat">
+        <h3>95%</h3>
+        <p>Taux de satisfaction</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats">
+    <div class="stat-item">
+      <h2>50+</h2>
+      <p>Projets soutenus</p>
+    </div>
+    <div class="stat-item">
+      <h2>15+</h2>
+      <p>Pays partenaires</p>
+    </div>
+    <div class="stat-item">
+      <h2>4.8/5</h2>
+      <p>Note des étudiants</p>
+    </div>
+  </section>
+
+  <!-- À propos Section -->
+<section id="about" class="about">
+  <h2>À propos de l’ANBG</h2>
+  <p>
+    L’Agence Nationale des Bourses du Gabon (ANBG) est l’organe chargé d’exécuter la
+    politique du gouvernement dans la gestion des étudiants boursiers gabonais.
+    Elle vise à garantir un accès équitable aux bourses et à favoriser la réussite
+    académique et professionnelle.
+  </p>
+
+  <div class="about-details">
+    <div class="card">
+      <h3>🎯 Mission</h3>
+      <p>Assurer une gestion efficace et transparente des bourses d’études au Gabon et à l’étranger.</p>
+    </div>
+    <div class="card">
+      <h3>🌍 Vision</h3>
+      <p>Former une génération compétente, innovante et adaptée aux besoins socio-économiques du pays.</p>
+    </div>
+    <div class="card">
+      <h3>💡 Valeurs</h3>
+      <ul>
+        <li>Transparence</li>
+        <li>Équité</li>
+        <li>Excellence</li>
+        <li>Innovation</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<!-- Stats Section avec compteurs -->
+<section class="stats">
+  <div class="stat-item">
+    <h2><span id="counter1">0</span>+</h2>
+    <p>Étudiants bénéficiaires</p>
+  </div>
+  <div class="stat-item">
+    <h2><span id="counter2">0</span>+</h2>
+    <p>Projets soutenus</p>
+  </div>
+  <div class="stat-item">
+    <h2><span id="counter3">0</span>%</h2>
+    <p>Taux de satisfaction</p>
+  </div>
+</section>
+<!-- Témoignages -->
+<section class="testimonials">
+  <h2>Ils parlent de l’ANBG</h2>
+  <div class="slider" id="testimonialSlider">
+    <div class="slide active">
+      <p>"Grâce à l’ANBG, j’ai pu poursuivre mes études en France. L’accompagnement est remarquable."</p>
+      <h4>— Marie, Étudiante</h4>
+    </div>
+    <div class="slide">
+      <p>"L’intégration de l’IA dans les programmes m’a aidé à développer mes compétences numériques."</p>
+      <h4>— Kevin, Étudiant en Informatique</h4>
+    </div>
+    <div class="slide">
+      <p>"Une véritable opportunité pour la jeunesse gabonaise !"</p>
+      <h4>— Amandine, Boursière</h4>
+    </div>
+  </div>
+  <div class="slider-controls">
+    <button id="prev">◀</button>
+    <button id="next">▶</button>
+  </div>
+</section>
+
+
+
+
+  <!-- Inclure Lucide icons dans le head -->
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<!-- Contact Section -->
+<section id="contact" class="contact">
+  <h2>Contactez-nous</h2>
+  <div class="contact-info">
+    <div>
+      <h3><i data-lucide="map-pin"></i> Adresse</h3>
+      <p>195 Rue Michel NZE MBA, Zone d'Oloumi, BP 3877, Libreville</p>
+    </div>
+    <div>
+      <h3><i data-lucide="phone"></i> Téléphone</h3>
+      <p><a href="tel:+24174572400">+241 74 57 24 00</a></p>
+    </div>
+    <div>
+      <h3><i data-lucide="mail"></i> Email</h3>
+      <p><a href="mailto:cellule.reclamation.anbg@gmail.com">cellule.reclamation.anbg@gmail.com</a></p>
+    </div>
+  </div>
+</section>
+
+  <!-- Formulaire -->
+  <form class="contact-form">
+    <input type="text" placeholder="Votre nom" required>
+    <input type="email" placeholder="Votre email" required>
+    <textarea placeholder="Votre message" rows="5" required></textarea>
+    <button type="submit" class="btn-primary">Envoyer</button>
+  </form>
+  <!-- Carte Google Maps -->
+   <div style="text-align: center;">
+      <h3><i data-lucide="map-pin"></i> Adresse</h3>
+      <p>195 Rue Michel NZE MBA, Zone d'Oloumi, BP 3877, Libreville</p>
+    </div>
+<div class="map">
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3977.885824416908!2d9.445312615274802!3d0.4210522997336991!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x10609d44a8b9d7c5%3A0xf13d74e5a50a6cf1!2sAgence%20Nationale%20des%20Bourses%20du%20Gabon%20(ANBG)!5e0!3m2!1sfr!2sga!4v1693142222222!5m2!1sfr!2sga"
+    width="50%"
+    height="300"
+    style="border:0;"
+    allowfullscreen=""
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+</div>
+
+
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 ANBG - Tous droits réservés</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script type="module" defer>
+  import Chatbot from "https://cdn.n8nchatui.com/v1/embed.js";
+  Chatbot.init({
+    "n8nChatUrl": "https://anbgtest.app.n8n.cloud/webhook/b5c66402-c0a4-4baf-a45c-5468fa44d1e6/chat",
+    "metadata": {}, // Include any custom data to send with each message to your n8n workflow
+    "theme": {
+      "button": {
+        "backgroundColor": "#328f4a",
+        "right": 20,
+        "bottom": 20,
+        "size": 50,
+        "iconColor": "#373434",
+        "customIconSrc": "https://lh5.googleusercontent.com/proxy/p4nTUB8BpYO6CcnXIvjkhfHjN-_shleoCD1xmY9VQ28eUne7J1hz43xAHnx0by4Lw9vLChUYdQKCOkE",
+        "customIconSize": 97,
+        "customIconBorderRadius": 19,
+        "autoWindowOpen": {
+          "autoOpen": false,
+          "openDelay": 2
+        },
+        "borderRadius": "rounded"
+      },
+      "tooltip": {
+        "showTooltip": true,
+        "tooltipMessage": "Notre chatbot",
+        "tooltipBackgroundColor": "#78a589",
+        "tooltipTextColor": "#ffffff",
+        "tooltipFontSize": 11
+      },
+      "chatWindow": {
+        "borderRadiusStyle": "rounded",
+        "avatarBorderRadius": 23,
+        "messageBorderRadius": 14,
+        "showTitle": true,
+        "title": "ANBG chatbot",
+        "titleAvatarSrc": "https://lh5.googleusercontent.com/proxy/p4nTUB8BpYO6CcnXIvjkhfHjN-_shleoCD1xmY9VQ28eUne7J1hz43xAHnx0by4Lw9vLChUYdQKCOkE",
+        "avatarSize": 40,
+        "welcomeMessage": "Bonjour je suis l'IA de l'ANBG comment puis-je vous aidez ?",
+        "errorMessage": "Le service est en état de maintenance ",
+        "backgroundColor": "#ffffff",
+        "height": 600,
+        "width": 400,
+        "fontSize": 16,
+        "starterPrompts": [
+          "qui est tu ?"
+        ],
+        "starterPromptFontSize": 15,
+        "renderHTML": false,
+        "clearChatOnReload": false,
+        "showScrollbar": false,
+        "botMessage": {
+          "backgroundColor": "#e4ffe0",
+          "textColor": "#000000",
+          "showAvatar": true,
+          "avatarSrc": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROL-h62gW4agkLUZ1Whp-ZWWXWI2ihtSW0Fg&s"
+        },
+        "userMessage": {
+          "backgroundColor": "#328f4a",
+          "textColor": "#ffffff",
+          "showAvatar": true,
+          "avatarSrc": "https://cdn-icons-png.flaticon.com/512/67/67902.png"
+        },
+        "textInput": {
+          "placeholder": "Entrez un message",
+          "backgroundColor": "#ffffff",
+          "textColor": "#1e1e1f",
+          "sendButtonColor": "#328f4a",
+          "maxChars": 500,
+          "maxCharsWarningMessage": "You exceeded the characters limit. Please input less than 500 characters.",
+          "autoFocus": false,
+          "borderRadius": 6,
+          "sendButtonBorderRadius": 50
+        },
+        "voiceInputConfig": {
+          "enabled": true,
+          "maxRecordingTime": 15,
+          "recordingNotSupportedMessage": "To record audio, use modern browsers like Chrome or Firefox that support audio recording"
+        }
+      }
+    }
+    });
+  </script>
+</body>
+</html>
